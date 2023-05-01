@@ -18,7 +18,7 @@
 @extends('admin.layouts.app')
 @section('title')
 
-L-W-S
+Ecommerce
 
 @endsection
 @section('main_part')

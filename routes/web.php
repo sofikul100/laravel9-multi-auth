@@ -23,6 +23,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\Categorie\CategorieController;
 use App\Http\Controllers\Admin\HomeController;
 
 /*
@@ -40,5 +41,18 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/admin', [HomeController::class, 'index'])->name('admin.dashboard');
 
     Route::post('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
+
+
+
+
+
+    //categorie=======//
+    Route::group(['prefix','categorie'],function(){
+       Route::get('/',[CategorieController::class,'index'])->name('categorie.index');
+    });
+
+    
+
+
 
 });
