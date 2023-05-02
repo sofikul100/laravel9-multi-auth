@@ -49,6 +49,10 @@ Route::group(['middleware' => 'admin'], function() {
     //categorie=======//
     Route::group(['prefix','categorie'],function(){
        Route::get('/',[CategorieController::class,'index'])->name('categorie.index');
+       Route::post('/store',[CategorieController::class,'store'])->name('categorie.store');
+
+
+       Route::get('/destroy/{id}',[CategorieController::class,'destroy'])->name('categorie.destroy');
     });
 
     

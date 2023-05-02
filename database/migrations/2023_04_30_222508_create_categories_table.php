@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('categorie_name');
+            $table->string('categorie_description');
+            $table->string('categorie_icon');
+            $table->integer('show_home_page');
             $table->timestamps();
         });
     }

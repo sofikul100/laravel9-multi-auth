@@ -21,6 +21,9 @@
 Ecommerce
 
 @endsection
+@php
+    $page = "Dashboard";
+@endphp
 @section('main_part')
 
 <div class="row">

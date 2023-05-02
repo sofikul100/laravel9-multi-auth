@@ -1,26 +1,19 @@
-{{-- <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in! as an Admin
-                </div>
-            </div>
-        </div>
-    </div>
-</x-admin-layout> --}}
 @extends('admin.layouts.app')
 @section('title')
 
 Ecommerce-Categories
 
 @endsection
+
+
+@php
+
+ $page = "Categories"
+
+@endphp
+
+
 @section('main_part')
 
 <div>
@@ -37,37 +30,53 @@ Ecommerce-Categories
                                         <tr>
                                             <th class="text-white">SL.</th>
                                             <th class="text-white">Categorie Name</th>
+                                            <th class="text-white">Categorie Des</th>
                                             <th class="text-white">Categorie Icon</th>
                                             <th class="text-white">Is Show</th>
                                             <th class="text-white">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($categories as $key => $categorie)
                                         <tr>
-                                            <td>1</td>
-                                            <td>System Architect</td>
+                                            <td>{{$key + 1}}</td>
+                                            <td>{{$categorie->categorie_name}}</td>
+                                            <td>{{$categorie->categorie_description}}</td>
                                             <td class="text-center">
-                                                <img src="" style="width:70px; height:70px" alt="cat-image">
+                                                <img src="{{asset('categorie_images')}}/{{$categorie->categorie_icon}}" style="width:70px; height:60px" alt="cat-image">
                                             </td>
                                             <td>
+                                                @if ($categorie->show_home_page == 1)
                                                 <span class="badge badge-success">True</span>
+                                                @else
                                                 <span class="badge badge-warning">false</span>
+                                                @endif
+                                                
+                                                
                                             </td>
                                             <td>
                                                 <a href="" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a href="" class="btn btn-success btn-sm">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                </a>
-                                                <a href="" class="btn btn-warning btn-sm">
+                                                @if ($categorie->show_home_page == 1)
+                                                  <a href="" class="btn btn-warning btn-sm" title="false">
                                                     <i class="fa fa-thumbs-down"></i>
-                                                </a>
-                                                <a href="" class="btn btn-danger btn-sm" id="delete">
+                                                   </a>
+                                                 @else
+                                                 <a href="" class="btn btn-success btn-sm" title="true">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                 </a>
+                                                 @endif
+                                                
+
+                                                
+
+                                                <a href="{{route('categorie.destroy',$categorie->id)}}" class="btn btn-danger btn-sm" id="delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -78,7 +87,7 @@ Ecommerce-Categories
 
 
                     <div class="modal fade" id="categorie_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form action="">
+                        <form action="{{route('categorie.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -90,11 +99,26 @@ Ecommerce-Categories
                                   </div>
                                   <div class="modal-body">
                                      <label for="categorie" style="color:black">Categorie Name </label>
-                                     <input type="text" class="form-control" name="categorie" placeholder="Inter categorie name..">
+                                     <input type="text" value="{{old('categorie_name')}}" class="form-control @error('categorie_name') is-invalid  @enderror" name="categorie_name" placeholder="Inter categorie name..">
+                                     @error('categorie_name')
+                                      <small style="color:red">{{$message}}</small>
+                                     @enderror
                                      <br/>
+
+                                     <label for="categorie" style="color:black">Categorie Description </label>
+                                     <input type="text" c class="form-control @error('categorie_description') is-invalid @enderror" name="categorie_description" placeholder="Inter categorie name..">
+                                     @error('categorie_description')
+                                      <small style="color:red">{{$message}}</small>
+                                     @enderror
+                                     <br/>
+
                                      <label for="categorie" style="color:black">Categorie Icon </label>
-                                     <input type="file" class="form-control" name="categorie_icon" placeholder="Inter categorie name..">
+                                     <input type="file"  class="form-control @error('categorie_icon') is-invalid @enderror" name="categorie_icon" placeholder="Inter categorie name..">
+                                     @error('categorie_icon')
+                                      <small style="color:red">{{$message}}</small>
+                                     @enderror
                                      <br/>
+
                                      <label for="show_home_page" style="color:black"> Show on Homepage </label>
                                      <select name="show_home_page" class="form-control">
                                          <option value="1"> Yes </option>
