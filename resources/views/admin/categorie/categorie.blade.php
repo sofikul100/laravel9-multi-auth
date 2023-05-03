@@ -21,7 +21,7 @@ Ecommerce-Categories
                     <div class="card shadow mb-4" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
                         <div class="card-header py-3 d-flex flex-row justify-content-between align-items-center">
                             <h4 class="m-0 font-weight-bold" style="color:black">@php echo $page @endphp</h4>
-                            <a href="#" class="btn text-white" style="background:black" data-toggle="modal" data-target="#categorie_model"> Add Categorie </a>
+                            <a href="#" class="btn text-light btn-success" style="font-weight:bold"  data-toggle="modal" data-target="#categorie_model"> Add Categorie </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -55,22 +55,10 @@ Ecommerce-Categories
                                                 
                                             </td>
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm">
+                                                <a href="{{route('categorie.edit',$categorie->id)}}" class="btn btn-primary btn-sm edit" >
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                @if ($categorie->show_home_page == 1)
-                                                  <a href="" class="btn btn-warning btn-sm" title="false">
-                                                    <i class="fa fa-thumbs-down"></i>
-                                                   </a>
-                                                 @else
-                                                 <a href="" class="btn btn-success btn-sm" title="true">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                 </a>
-                                                 @endif
                                                 
-
-                                                
-
                                                 <a href="{{route('categorie.destroy',$categorie->id)}}" class="btn btn-danger btn-sm" id="delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
@@ -86,7 +74,7 @@ Ecommerce-Categories
 
 
 
-                    <div class="modal fade" id="categorie_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="categorie_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <form action="{{route('categorie.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-dialog" role="document">
@@ -137,7 +125,9 @@ Ecommerce-Categories
 
 
 
+{{-- edit model start  --}}
+
+
+
 </div>
-
-
 @endsection

@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\HomeController;
 |--------------------------------------------------------------------------
 */
 
+
 Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('admin.login')->middleware('guest:admin');
 
 Route::post('/admin/login/store', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
@@ -50,8 +51,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::group(['prefix','categorie'],function(){
        Route::get('/',[CategorieController::class,'index'])->name('categorie.index');
        Route::post('/store',[CategorieController::class,'store'])->name('categorie.store');
-
-
+       Route::get('/edit/{id}',[CategorieController::class,'edit'])->name('categorie.edit');
+       Route::post('/update/{id}',[CategorieController::class,'update'])->name('categorie.update');
        Route::get('/destroy/{id}',[CategorieController::class,'destroy'])->name('categorie.destroy');
     });
 
